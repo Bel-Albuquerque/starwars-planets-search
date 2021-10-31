@@ -6,9 +6,10 @@ function TableHeader() {
   const [objKeys, setObjKeys] = useState([]);
 
   useEffect(() => {
+    const INDEX = 9;
     if (data.length > 0) {
       const header = Object.keys(data[0]);
-      header.splice(9, 1);
+      header.splice(INDEX, 1);
       setObjKeys(header);
     }
   }, [data]);
