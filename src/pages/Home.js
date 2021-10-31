@@ -1,13 +1,13 @@
 import React from 'react';
 import FetchProvider from '../context/fetchProvider';
 import Table from '../component/Table';
+import Inputs from '../component/Inputs';
 
 function Home() {
   return (
     <div>
-
-      <h1>teste</h1>
       <FetchProvider>
+        <Inputs />
         <Table />
       </FetchProvider>
     </div>
