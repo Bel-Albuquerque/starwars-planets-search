@@ -8,6 +8,7 @@ function InputColumnFilter() {
     setObjKeys,
     objKeys,
   } = useContext(MyContext);
+
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [inputValue, setValue] = useState('');

@@ -9,6 +9,7 @@ function FetchProvider({ children }) {
   // https://stackoverflow.com/questions/63570597/typeerror-func-apply-is-not-a-function
   useEffect(() => {
     (async () => {
+      console.log('fetch');
       const result = await fetchApiPlanets();
       setData(result);
     })();
@@ -73,6 +74,7 @@ function FetchProvider({ children }) {
 
   const [objKeys, setObjKeys] = useState([...arrayObjKeys]);
   const [copyData, setCopyData] = useState([]);
+
   const objContext = {
     data,
     setFiltersByName,
@@ -87,6 +89,7 @@ function FetchProvider({ children }) {
     objKeys,
     copyData,
     setCopyData,
+    filters,
   };
 
   return (

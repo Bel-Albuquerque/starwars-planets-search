@@ -11,9 +11,9 @@ function Table() {
     column,
     value,
     showFilter,
-    setCopyTrue,
     copyData,
     setCopyData,
+    filters,
   } = useContext(MyContext);
 
   const [fetchTrue, setFetchTrue] = useState(false);
@@ -22,21 +22,24 @@ function Table() {
     if (data.length > 0) {
       setFetchTrue(true);
       setCopyData([...data]);
+      console.log('setdata');
     }
-  }, [data, setCopyData, setCopyTrue]);
+  }, [data]);
 
-  const filterDataNumbers = () => {
+  useEffect(() => {
     if (comparison === 'maior que') {
-      return copyData.filter((obj) => Number(obj[column]) > Number(value));
+      const newArray = copyData.filter((obj) => Number(obj[column]) > Number(value));
+      setCopyData(newArray);
     }
     if (comparison === 'menor que') {
-      return copyData.filter((obj) => Number(obj[column]) < Number(value));
+      const newArray = copyData.filter((obj) => Number(obj[column]) < Number(value));
+      setCopyData(newArray);
     }
     if (comparison === 'igual a') {
-      return copyData.filter((obj) => Number(obj[column]) === Number(value));
+      const newArray = copyData.filter((obj) => Number(obj[column]) === Number(value));
+      setCopyData(newArray);
     }
-    return [];
-  };
+  }, [filters]);
 
   return (
     <div>
@@ -55,7 +58,7 @@ function Table() {
               <TableBody key={ index } obj={ obj } />))
           }
           {
-            filterDataNumbers().map((obj, index) => (
+            showFilter && copyData.map((obj, index) => (
               <TableBody key={ index } obj={ obj } />))
           }
         </tbody>
