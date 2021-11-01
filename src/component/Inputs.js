@@ -1,12 +1,12 @@
 import React from 'react';
-import InputColumnFilter from './InputColumnFilter';
+import InputNumericValues from './InputNumericValues';
 import InputName from './InputName';
 
 function Inputs() {
   return (
     <div>
       <InputName />
-      <InputColumnFilter />
+      <InputNumericValues />
     </div>
   );
 }

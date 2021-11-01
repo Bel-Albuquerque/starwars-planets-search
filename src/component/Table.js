@@ -4,22 +4,36 @@ import TableBody from './TableBody';
 import TableHeader from './TabeHeader';
 
 function Table() {
-  const { data, name, comparison, column, value, showFilter } = useContext(MyContext);
+  const {
+    data,
+    name,
+    comparison,
+    column,
+    value,
+    showFilter,
+    setCopyTrue,
+    copyData,
+    setCopyData,
+  } = useContext(MyContext);
+
   const [fetchTrue, setFetchTrue] = useState(false);
 
   useEffect(() => {
-    if (data.length > 0) setFetchTrue(true);
-  }, [data]);
+    if (data.length > 0) {
+      setFetchTrue(true);
+      setCopyData([...data]);
+    }
+  }, [data, setCopyData, setCopyTrue]);
 
   const filterDataNumbers = () => {
     if (comparison === 'maior que') {
-      return data.filter((obj) => Number(obj[column]) > Number(value));
+      return copyData.filter((obj) => Number(obj[column]) > Number(value));
     }
     if (comparison === 'menor que') {
-      return data.filter((obj) => Number(obj[column]) < Number(value));
+      return copyData.filter((obj) => Number(obj[column]) < Number(value));
     }
     if (comparison === 'igual a') {
-      return data.filter((obj) => Number(obj[column]) === Number(value));
+      return copyData.filter((obj) => Number(obj[column]) === Number(value));
     }
     return [];
   };

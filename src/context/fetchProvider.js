@@ -63,16 +63,30 @@ function FetchProvider({ children }) {
 
   const [showFilter, setShowFilter] = useState(false);
 
+  const arrayObjKeys = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const [objKeys, setObjKeys] = useState([...arrayObjKeys]);
+  const [copyData, setCopyData] = useState([]);
   const objContext = {
     data,
     setFiltersByName,
     name,
-    setFilterByNumericValues,
     setShowFilter,
     showFilter,
+    setFilterByNumericValues,
     column,
     comparison,
     value,
+    setObjKeys,
+    objKeys,
+    copyData,
+    setCopyData,
   };
 
   return (
