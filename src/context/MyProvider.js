@@ -34,30 +34,31 @@ function MyProvider({ children }) {
 
   const [filters, setFilters] = useState({ ...objFilters });
   const { filters: { filterByName: { name } } } = filters;
+  const { filters: { order } } = filters;
 
-  // const setOrderColumn = (paramOrderColumn) => {
-  //   const newFilters = {
-  //     filters: {
-  //       filterByName: { ...filters.filters.filterByName },
-  //       filterByNumericValues: [...filters.filters.filterByNumericValues],
-  //       order: { ...filters.filters.order,
-  //         column: paramOrderColumn },
-  //     },
-  //   };
-  //   setFilters(newFilters);
-  // };
+  const setOrderColumn = (paramOrderColumn) => {
+    const newFilters = {
+      filters: {
+        filterByName: { ...filters.filters.filterByName },
+        filterByNumericValues: [...filters.filters.filterByNumericValues],
+        order: { ...filters.filters.order,
+          column: paramOrderColumn },
+      },
+    };
+    setFilters(newFilters);
+  };
 
-  // const setOrderSort = (paramOrderSort) => {
-  //   const newFilters = {
-  //     filters: {
-  //       filterByName: { ...filters.filters.filterByName },
-  //       filterByNumericValues: [...filters.filters.filterByNumericValues],
-  //       order: { ...filters.filters.order,
-  //         sort: paramOrderSort },
-  //     },
-  //   };
-  //   setFilters(newFilters);
-  // };
+  const setOrderSort = (paramOrderSort) => {
+    const newFilters = {
+      filters: {
+        filterByName: { ...filters.filters.filterByName },
+        filterByNumericValues: [...filters.filters.filterByNumericValues],
+        order: { ...filters.filters.order,
+          sort: paramOrderSort },
+      },
+    };
+    setFilters(newFilters);
+  };
 
   const setFiltersByName = (params) => {
     const newFilters = {
@@ -150,6 +151,7 @@ function MyProvider({ children }) {
 
   const [objKeys, setObjKeys] = useState([...arrayObjKeys]);
   const [copyData, setCopyData] = useState([]);
+  const [dataInOrder, setDataInOrder] = useState([]);
 
   const objContext = {
     data,
@@ -165,6 +167,11 @@ function MyProvider({ children }) {
     filters,
     setFilters,
     setRemoveFilterNumericValues,
+    dataInOrder,
+    setDataInOrder,
+    setOrderColumn,
+    order,
+    setOrderSort,
   };
 
   return (

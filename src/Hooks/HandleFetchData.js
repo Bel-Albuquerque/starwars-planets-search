@@ -5,10 +5,12 @@ function HandleFetchData() {
   const {
     data,
     setCopyData,
+    dataInOrder,
+    setDataInOrder,
   } = useContext(MyContext);
 
   const [fetchTrue, setFetchTrue] = useState(false);
-  const [dataInOrder, setDataInOrder] = useState([]);
+
   const orderData = () => {
     const MENOS_UM = -1;
     const order = data.sort((a, b) => {
