@@ -1,5 +1,5 @@
 import React from 'react';
-import FetchProvider from '../context/fetchProvider';
+import FetchProvider from '../context/FetchProvider';
 import Table from '../component/Table';
 import Inputs from '../component/Inputs';
 

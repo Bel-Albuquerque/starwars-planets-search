@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import fetchApiPlanets from '../services/servicesAPI';
 import MyContext from './MyContext';
 
-function FetchProvider({ children }) {
+function MyProvider({ children }) {
   const [data, setData] = useState([]);
 
   // https://stackoverflow.com/questions/63570597/typeerror-func-apply-is-not-a-function
   useEffect(() => {
     (async () => {
-      console.log('fetch');
       const result = await fetchApiPlanets();
       setData(result);
     })();
@@ -31,7 +30,6 @@ function FetchProvider({ children }) {
 
   const [filters, setFilters] = useState({ ...objFilters });
   const { filters: { filterByName: { name } } } = filters;
-  const { filters: { filterByNumericValues: [{ column, comparison, value }] } } = filters;
 
   const setFiltersByName = (params) => {
     const newFilters = {
@@ -46,20 +44,65 @@ function FetchProvider({ children }) {
   };
 
   const setFilterByNumericValues = (paramsColum, paramsComparison, paramsValue) => {
-    const newFilters = {
-      filters: {
-        filterByName: { ...filters.filters.filterByName },
-        filterByNumericValues: [
-          {
-            column: paramsColum,
-            comparison: paramsComparison,
-            value: paramsValue,
-          },
-        ],
-      },
-    };
+    const { filters: { filterByNumericValues } } = filters;
+    const { column } = filterByNumericValues[0];
+    if (column === '') {
+      const newFilters = {
+        filters: {
+          filterByName: { ...filters.filters.filterByName },
+          filterByNumericValues: [
+            {
+              column: paramsColum,
+              comparison: paramsComparison,
+              value: paramsValue,
+            },
+          ],
+        },
+      };
+      setFilters(newFilters);
+    } else {
+      const newFilters = {
+        filters: {
+          filterByName: { ...filters.filters.filterByName },
+          filterByNumericValues: [
+            ...filters.filters.filterByNumericValues,
+            {
+              column: paramsColum,
+              comparison: paramsComparison,
+              value: paramsValue,
+            },
+          ],
+        },
+      };
+      setFilters(newFilters);
+    }
+  };
 
-    setFilters(newFilters);
+  const setRemoveFilterNumericValues = (params) => {
+    const { filters: { filterByNumericValues } } = filters;
+    const newList = filterByNumericValues.filter((obj) => obj.column !== params);
+    if (newList.length < 1) {
+      const emptyList = {
+        filters: {
+          filterByName: { ...filters.filters.filterByName },
+          filterByNumericValues: [
+            { column: '',
+              comparison: '',
+              value: '',
+            },
+          ],
+        },
+      };
+      setFilters(emptyList);
+    } else {
+      const newFilter = {
+        filters: {
+          filterByName: { ...filters.filters.filterByName },
+          filterByNumericValues: [...newList],
+        },
+      };
+      setFilters(newFilter);
+    }
   };
 
   const [showFilter, setShowFilter] = useState(false);
@@ -82,14 +125,13 @@ function FetchProvider({ children }) {
     setShowFilter,
     showFilter,
     setFilterByNumericValues,
-    column,
-    comparison,
-    value,
     setObjKeys,
     objKeys,
     copyData,
     setCopyData,
     filters,
+    setFilters,
+    setRemoveFilterNumericValues,
   };
 
   return (
@@ -99,8 +141,8 @@ function FetchProvider({ children }) {
   );
 }
 
-FetchProvider.propTypes = {
+MyProvider.propTypes = {
   children: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
-export default FetchProvider;
+export default MyProvider;
