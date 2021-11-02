@@ -8,7 +8,8 @@ function TableBody({ obj }) {
   return (
     <tr>
       {
-        array.map((item, index) => <td key={ index }>{item}</td>)
+        array.map((item, index) => (
+          <td data-testid={ index === 0 && 'planet-name' } key={ index }>{item}</td>))
       }
     </tr>
   );

@@ -342,7 +342,7 @@ describe.only('6 - Ordene as colunas de forma ascendente ou descendente', () => 
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  it('Verifique a ordenação inicial', async () => {
+  it.only('Verifique a ordenação inicial', async () => {
     await act(async () => {
       render(<App />);
     });
