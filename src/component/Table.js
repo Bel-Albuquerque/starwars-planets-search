@@ -1,64 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 import TableBody from './TableBody';
 import TableHeader from './TabeHeader';
+import HandleFetchData from '../Hooks/HandleFetchData';
+import HandleFilterByNumericValues from '../Hooks/HandleFilterByNumericValues';
 
 function Table() {
   const {
-    data,
     name,
     showFilter,
-    copyData,
-    setCopyData,
-    filters,
   } = useContext(MyContext);
 
-  const [fetchTrue, setFetchTrue] = useState(false);
-  const [dataInOrder, setDataInOrder] = useState([]);
-
-  const orderData = () => {
-    const MENOS_UM = -1;
-    const order = data.sort((a, b) => {
-      if (a.name > b.name) {
-        return 1;
-      }
-      if (a.name < b.name) {
-        return MENOS_UM;
-      }
-      return 0;
-    });
-    setDataInOrder(order);
-  };
-
-  useEffect(() => {
-    if (data.length > 0) {
-      setFetchTrue(true);
-      setCopyData([...data]);
-      orderData();
-    }
-  }, [data]);
-
-  function filterDataSearch(comparison, column, value) {
-    if (comparison === 'maior que') {
-      const newArray = copyData.filter((obj) => Number(obj[column]) > Number(value));
-      setCopyData(newArray);
-    }
-    if (comparison === 'menor que') {
-      const newArray = copyData.filter((obj) => Number(obj[column]) < Number(value));
-      setCopyData(newArray);
-    }
-    if (comparison === 'igual a') {
-      const newArray = copyData.filter((obj) => Number(obj[column]) === Number(value));
-      setCopyData(newArray);
-    }
-  }
-
-  useEffect(() => {
-    const { filters: { filterByNumericValues } } = filters;
-    filterByNumericValues.forEach(({ comparison, column, value }) => {
-      filterDataSearch(comparison, column, value);
-    });
-  }, [filters]);
+  const vamosver = HandleFetchData();
+  const { data, fetchTrue, dataInOrder } = vamosver;
+  const vamosver2 = HandleFilterByNumericValues();
+  const { copyData } = vamosver2;
 
   return (
     <main>

@@ -25,11 +25,39 @@ function MyProvider({ children }) {
           value: '',
         },
       ],
+      order: {
+        column: 'name',
+        sort: 'ASC',
+      },
     },
   };
 
   const [filters, setFilters] = useState({ ...objFilters });
   const { filters: { filterByName: { name } } } = filters;
+
+  // const setOrderColumn = (paramOrderColumn) => {
+  //   const newFilters = {
+  //     filters: {
+  //       filterByName: { ...filters.filters.filterByName },
+  //       filterByNumericValues: [...filters.filters.filterByNumericValues],
+  //       order: { ...filters.filters.order,
+  //         column: paramOrderColumn },
+  //     },
+  //   };
+  //   setFilters(newFilters);
+  // };
+
+  // const setOrderSort = (paramOrderSort) => {
+  //   const newFilters = {
+  //     filters: {
+  //       filterByName: { ...filters.filters.filterByName },
+  //       filterByNumericValues: [...filters.filters.filterByNumericValues],
+  //       order: { ...filters.filters.order,
+  //         sort: paramOrderSort },
+  //     },
+  //   };
+  //   setFilters(newFilters);
+  // };
 
   const setFiltersByName = (params) => {
     const newFilters = {
@@ -38,6 +66,7 @@ function MyProvider({ children }) {
           name: params,
         },
         filterByNumericValues: [...filters.filters.filterByNumericValues],
+        order: { ...filters.filters.order },
       },
     };
     setFilters(newFilters);
@@ -57,6 +86,7 @@ function MyProvider({ children }) {
               value: paramsValue,
             },
           ],
+          order: { ...filters.filters.order },
         },
       };
       setFilters(newFilters);
@@ -72,6 +102,7 @@ function MyProvider({ children }) {
               value: paramsValue,
             },
           ],
+          order: { ...filters.filters.order },
         },
       };
       setFilters(newFilters);
@@ -91,6 +122,7 @@ function MyProvider({ children }) {
               value: '',
             },
           ],
+          order: { ...filters.filters.order },
         },
       };
       setFilters(emptyList);
@@ -99,6 +131,7 @@ function MyProvider({ children }) {
         filters: {
           filterByName: { ...filters.filters.filterByName },
           filterByNumericValues: [...newList],
+          order: { ...filters.filters.order },
         },
       };
       setFilters(newFilter);
