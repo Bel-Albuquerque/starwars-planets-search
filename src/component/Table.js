@@ -7,7 +7,7 @@ import HandleFilterByNumericValues from '../Hooks/HandleFilterByNumericValues';
 
 function Table() {
   const {
-    name,
+    filterName,
     showFilter,
   } = useContext(MyContext);
 
@@ -23,10 +23,10 @@ function Table() {
           <TableHeader />
         </thead>
         <tbody>
-          { !name && !showFilter && fetchTrue && dataInOrder.map((obj, index) => (
+          { !filterName && !showFilter && fetchTrue && dataInOrder.map((obj, index) => (
             <TableBody key={ index } obj={ obj } />)) }
-          { name && !showFilter
-            && data.filter((obj) => obj.name.includes(name)).map((obj, index) => (
+          { filterName && !showFilter
+            && data.filter((obj) => obj.name.includes(filterName)).map((obj, index) => (
               <TableBody key={ index } obj={ obj } />)) }
           { showFilter && copyData.map((obj, index) => (
             <TableBody key={ index } obj={ obj } />)) }

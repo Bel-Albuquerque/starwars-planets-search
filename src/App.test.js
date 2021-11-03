@@ -82,7 +82,7 @@ describe.only('1 - Faça uma requisição para o endpoint `/planets` da API de S
     // a requisição (mock) retorna 10 planetas, somando com mais um linha do header totalizando 11 linhas
     expect(await screen.findAllByRole(ROW_ROLE_SELECTOR)).toHaveLength(11);
   });
-});
+});ROW_ROLE_SELECTOR
 
 describe.only('2 - Filtre a tabela através de um texto, inserido num *campo de texto*, exibindo somente os planetas cujos nomes incluam o texto digitado', () => {
   beforeAll(mockFetch);

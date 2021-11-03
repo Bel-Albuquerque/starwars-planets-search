@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import MyContext from '../context/MyContext';
+import SetRemoveFilterNumericValues from '../Hooks/SetRemoveFilterNumericValues';
 
 function InputColumnFilter() {
   const {
@@ -9,7 +10,8 @@ function InputColumnFilter() {
     objKeys,
     setObjKeys,
     setCopyData,
-    setRemoveFilterNumericValues,
+    filters,
+    setFilters,
   } = useContext(MyContext);
 
   const [column, setColumn] = useState('population');
@@ -31,7 +33,7 @@ function InputColumnFilter() {
   };
 
   const handleCloseOption = (params) => {
-    setRemoveFilterNumericValues(params);
+    SetRemoveFilterNumericValues(params, filters, setFilters);
     setOptions(options.filter((option) => option !== params));
     setObjKeys([...objKeys, params]);
     setCopyData([...data]);

@@ -3,25 +3,20 @@ import MyContext from '../context/MyContext';
 
 function InputByOrder() {
   const { objKeys,
-    setOrderColumn,
-    order,
-    setOrderSort,
+    filterColumn,
+    setFilterColumn,
+    filterSort,
+    setFilterSort,
     dataInOrder,
     setDataInOrder,
     data,
   } = useContext(MyContext);
 
-  const { column, sort } = order;
-  // const handleChangeNumericValues = ({ target }, callback) => {
-  //   const { value } = target;
-  //   callback(value);
-  // };
   const [ASC, setASC] = useState(true);
   const [DESC, setDESC] = useState(false);
 
   const handleRadioInput = ({ target }) => {
     const { value } = target;
-    console.log(target);
     setDataInOrder([...dataInOrder.reverse()]);
     if (value === 'DESC') {
       setDESC(true);
@@ -30,18 +25,18 @@ function InputByOrder() {
       setDESC(false);
       setASC(true);
     }
-    setOrderSort(value);
+    setFilterSort(value);
   };
 
   const handleSelectColum = ({ target }) => {
     const { value } = target;
-    setOrderColumn(value);
+    setFilterColumn(value);
   };
 
   const orderData = (param, array) => {
     const teste = array.slice(0);
     const newOrder = teste.sort((a, b) => a[param] - b[param]);
-    if (sort !== 'ASC') {
+    if (filterSort !== 'ASC') {
       setDataInOrder(newOrder.reverse());
     } else {
       setDataInOrder(newOrder);
@@ -49,7 +44,7 @@ function InputByOrder() {
   };
 
   const handleButton = () => {
-    orderData(column, data);
+    orderData(filterColumn, data);
   };
 
   return (

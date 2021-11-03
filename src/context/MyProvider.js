@@ -5,6 +5,9 @@ import MyContext from './MyContext';
 
 function MyProvider({ children }) {
   const [data, setData] = useState([]);
+  const [filterName, setFilterName] = useState(''); // referencia Beatriz Ribeiro
+  const [filterSort, setFilterSort] = useState('ASC'); // referencia Beatriz Ribeiro
+  const [filterColumn, setFilterColumn] = useState('name'); // referencia Beatriz Ribeiro
 
   // https://stackoverflow.com/questions/63570597/typeerror-func-apply-is-not-a-function
   useEffect(() => {
@@ -17,7 +20,7 @@ function MyProvider({ children }) {
   const objFilters = {
     filters: {
       filterByName: {
-        name: '',
+        name: filterName,
       },
       filterByNumericValues: [
         { column: '',
@@ -26,52 +29,13 @@ function MyProvider({ children }) {
         },
       ],
       order: {
-        column: 'name',
-        sort: 'ASC',
+        column: filterColumn,
+        sort: filterSort,
       },
     },
   };
 
   const [filters, setFilters] = useState({ ...objFilters });
-  const { filters: { filterByName: { name } } } = filters;
-  const { filters: { order } } = filters;
-
-  const setOrderColumn = (paramOrderColumn) => {
-    const newFilters = {
-      filters: {
-        filterByName: { ...filters.filters.filterByName },
-        filterByNumericValues: [...filters.filters.filterByNumericValues],
-        order: { ...filters.filters.order,
-          column: paramOrderColumn },
-      },
-    };
-    setFilters(newFilters);
-  };
-
-  const setOrderSort = (paramOrderSort) => {
-    const newFilters = {
-      filters: {
-        filterByName: { ...filters.filters.filterByName },
-        filterByNumericValues: [...filters.filters.filterByNumericValues],
-        order: { ...filters.filters.order,
-          sort: paramOrderSort },
-      },
-    };
-    setFilters(newFilters);
-  };
-
-  const setFiltersByName = (params) => {
-    const newFilters = {
-      filters: {
-        filterByName: {
-          name: params,
-        },
-        filterByNumericValues: [...filters.filters.filterByNumericValues],
-        order: { ...filters.filters.order },
-      },
-    };
-    setFilters(newFilters);
-  };
 
   const setFilterByNumericValues = (paramsColum, paramsComparison, paramsValue) => {
     const { filters: { filterByNumericValues } } = filters;
@@ -110,35 +74,6 @@ function MyProvider({ children }) {
     }
   };
 
-  const setRemoveFilterNumericValues = (params) => {
-    const { filters: { filterByNumericValues } } = filters;
-    const newList = filterByNumericValues.filter((obj) => obj.column !== params);
-    if (newList.length < 1) {
-      const emptyList = {
-        filters: {
-          filterByName: { ...filters.filters.filterByName },
-          filterByNumericValues: [
-            { column: '',
-              comparison: '',
-              value: '',
-            },
-          ],
-          order: { ...filters.filters.order },
-        },
-      };
-      setFilters(emptyList);
-    } else {
-      const newFilter = {
-        filters: {
-          filterByName: { ...filters.filters.filterByName },
-          filterByNumericValues: [...newList],
-          order: { ...filters.filters.order },
-        },
-      };
-      setFilters(newFilter);
-    }
-  };
-
   const [showFilter, setShowFilter] = useState(false);
 
   const arrayObjKeys = [
@@ -155,23 +90,23 @@ function MyProvider({ children }) {
 
   const objContext = {
     data,
-    setFiltersByName,
-    name,
-    setShowFilter,
+    filterName,
+    setFilterName,
     showFilter,
+    setShowFilter,
     setFilterByNumericValues,
-    setObjKeys,
     objKeys,
+    setObjKeys,
     copyData,
     setCopyData,
     filters,
     setFilters,
-    setRemoveFilterNumericValues,
     dataInOrder,
     setDataInOrder,
-    setOrderColumn,
-    order,
-    setOrderSort,
+    filterColumn,
+    setFilterColumn,
+    filterSort,
+    setFilterSort,
   };
 
   return (

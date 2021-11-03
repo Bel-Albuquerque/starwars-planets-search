@@ -1,14 +1,14 @@
 import React from 'react';
-import InputNumericValues from './InputNumericValues';
+import InputsNumericValues from './InputsNumericValues';
 import InputName from './InputName';
-import InputByOrder from './InputByOrder';
+import InputsByOrder from './InputsByOrder';
 
 function Inputs() {
   return (
     <div>
       <InputName />
-      <InputByOrder />
-      <InputNumericValues />
+      <InputsByOrder />
+      <InputsNumericValues />
     </div>
   );
 }
